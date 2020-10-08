@@ -1,0 +1,16 @@
+version: '3'
+services:
+    myenv-tf:
+        build: ./env-tf
+        environment:
+            - USER=${USER}
+            - NVIDIA_VISIBLE_DEVICES=all
+        container_name: myenv-tf 
+        volumes:
+            - /home/${USER}/projects:/home/${USER}/projects/
+        working_dir: /home/${USER}/projects
+        ports:
+            - 6006:6006 # for Tensorboard
+        command: >
+            bash -c "adduser -q --gecos "" --disabled-login ${USER}" 
+        tty: true
